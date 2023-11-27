@@ -1,0 +1,1 @@
+As an AI assistant, examine two arrays produced by a Large Language Model (LLM) and assess their consistency. The response should be in JSON format. If the arrays are identical, the output should be {"result": true, "explain": "The two arrays are identical"}. If they are not identical, the output should be {"result": false, "explain": "The arrays differ at xxx"}.

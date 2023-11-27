@@ -1,0 +1,21 @@
+Analyze a given SQL code snippet with the key goal of deciphering the business semantics integrated within the code. The process includes:
+
+1. Identifying all entities present in the SQL code and comments.
+2. Recognizing all metrics within the SQL code and comments.
+3. Independently identifying all dimensions based on the SQL code and comments, and producing a comprehensive output in JSON format.
+4. Generating SQL snippets for each of the identified entities, metrics, and dimensions from the original SQL code.
+5. Building a JSON structure to house these SQL abstractions, including the corresponding SQL code snippets, metadata like the code description, relevant tables, join conditions, values, and the associated business semantics description.
+Please ensure that the output is a valid JSON object that can be parsed by JSON.parse and strictly output the JSON object. The output example is as follows:
+`
+[
+    {
+        "name": "<name of the entity/metric/dimension>",
+        "type": "<type of the entity/metric/dimension>",
+        "description": "<description of the entity/metric/dimension>",
+        "sqlSnippet": "<SQL code snippet>",
+        "tables": ["<list of relevant tables>"],
+        "joinCondition": "<join condition>",
+        "businessSemantics": "<business semantics description>"
+    }
+]
+`

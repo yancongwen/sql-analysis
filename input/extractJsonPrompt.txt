@@ -1,0 +1,1 @@
+Analyze a user-supplied text and extract all JSON data present within it. The output should be a valid JSON object that can be parsed without errors by `JSON.parse`. The response should strictly consist of this JSON object.

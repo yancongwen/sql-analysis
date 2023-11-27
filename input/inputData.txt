@@ -1,0 +1,59 @@
+## 上游线上结算单
+select tbl.business_line_no, u.no, ifnull(u.quantity, 0), ifnull(u.amount, 0)
+from t_business_line tbl
+         left join (select bc.no,
+                           bs.status                     as status,
+                           sum(bs.total_settle_quantity) as quantity,
+                           sum(bs.current_settle_amount) as amount
+                    from bo_statement bs
+                             left join bo_contract bc on bs.contract_no = bc.no
+                    where bs.status = '4'
+                      and bc.del_flag = 0
+                      and bs.del_flag = 0
+                    group by bc.no) u on tbl.parent_contract_no = u.no
+where tbl.business_line_no is not null;
+
+## 下游线上结算单
+select tbl.business_line_no, u.no, ifnull(u.quantity, 0), ifnull(u.amount, 0)
+from t_business_line tbl
+         left join (select bc.no,
+                           bs.status                     as status,
+                           sum(bs.total_settle_quantity) as quantity,
+                           sum(bs.current_settle_amount) as amount
+                    from bo_statement bs
+                             left join bo_contract bc on bs.contract_no = bc.no
+                    where bs.status = '4'
+                      and bc.del_flag = 0
+                      and bs.del_flag = 0
+                    group by bc.no) u on tbl.contract_no = u.no
+where tbl.business_line_no is not null;
+
+## 上游线下结算单
+select business_line_no, ifnull(amount, 0), ifnull(quantity, 0)
+from t_business_line c
+         left join
+     (select a.status as status, paper_contract_no, sum(settle_amount) as amount, sum(settle_quantity) as quantity
+      from bo_terminal_statement a
+               left join bo_terminal_contract b
+                         on a.terminal_contract_id = b.id
+      where a.status = '3'
+        and a.del_flag = 0
+        and b.del_flag = 0
+      group by paper_contract_no) u
+     on c.parent_contract_no = u.paper_contract_no
+where business_line_no is not null;
+
+## 下游合同线下结算单
+select business_line_no, ifnull(amount, 0), ifnull(quantity, 0)
+from t_business_line c
+         left join
+     (select a.status as status, paper_contract_no, sum(settle_amount) as amount, sum(settle_quantity) as quantity
+      from bo_terminal_statement a
+               left join bo_terminal_contract b
+                         on a.terminal_contract_id = b.id
+      where a.status = '3'
+        and a.del_flag = 0
+        and b.del_flag = 0
+      group by paper_contract_no) u
+     on c.contract_no = u.paper_contract_no
+where business_line_no is not null;
