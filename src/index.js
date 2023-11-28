@@ -125,7 +125,7 @@ const evaluate2 = async (list) => {
         }
         let sameList = []
         for (let j = i + 1; j < n; j++) {
-            if (result[i]) {
+            if (result[j]) {
                 continue
             }
             console.log(`compare: ${i} to ${j}`)
