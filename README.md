@@ -30,11 +30,17 @@ AZURE_OPENAI_API_VERSION=""
     ```js
     {
         "times": 1, // 重复请求 OpenAI 的次数
-        "outputFileName": "test" // 输出文件名，输出文件路径为：output/test.json
+        "promptFile": "prompt" // 提示词文件名，不需要加后缀
+        "outputFolder": "" // 输出目录，选填，省略后取提示词文件的名称
     }
     ```
 
 - 执行
 ```bash
 npm start
+```
+
+- 仅进行结果评估
+```bash
+npm run evaluate
 ```

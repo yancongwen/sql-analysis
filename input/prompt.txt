@@ -1,3 +1,4 @@
+<user>
 Analyze a given SQL code snippet with the key goal of deciphering the business semantics integrated within the code. The process includes:
 
 1. Identifying all entities present in the SQL code and comments.
@@ -19,3 +20,8 @@ Please ensure that the output is a valid JSON object that can be parsed by JSON.
     }
 ]
 `
+</user>
+
+<assistant>
+Sure, I can help with that. However, I need an SQL code snippet to analyze. Could you please provide one?
+</assistant>
